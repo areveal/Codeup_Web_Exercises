@@ -15,14 +15,14 @@
 	<form method="POST">
     <p>
         <label for="username">Username</label>
-        <input id="username" name="username" type="text">
+        <input id="username" name="username" type="text" placeholder="UserName" autofocus>
     </p>
     <p>
         <label for="password">Password</label>
-        <input id="password" name="password" type="password">
+        <input id="password" name="password" type="password" placeholder="Password">
     </p>
     <p>
-        <input type="submit">
+        <input value="Log In" type="submit">
     </p>
 </form>
 
