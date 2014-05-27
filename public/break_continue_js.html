@@ -6,9 +6,9 @@
 <body>
 		<script>
 			
-			// declare variable outside loop for scope purposes.
+			// declare variable outside loop for scope purposes best practice.
 			var skip;
-			// pick an odd number
+			// pick a number until it is odd
 			do{
 				
 				skip = Math.floor((Math.random()*50)+1)
@@ -22,7 +22,7 @@
 			for(var i = 0; i < 50; i++)	{
 				if (i == skip) {
 					// It's the random number!!
-					console.log('Yikes!! Random number to skip is : ' + i);
+					console.log('Yikes!! Skipping number : ' + i);
 					continue;
 				} else if (i % 2 == 0) {
 					// Dumb even numbers...
