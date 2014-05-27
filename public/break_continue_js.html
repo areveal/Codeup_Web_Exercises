@@ -6,22 +6,29 @@
 <body>
 		<script>
 			
+			// declare variable outside loop for scope purposes.
+			var skip;
+			// pick an odd number
 			do{
-			
-				var skip = Math.floor((Math.random()*50)+1)
-			
+				
+				skip = Math.floor((Math.random()*50)+1)
+				console.log(skip);
+
 			}while(skip % 2 == 0);
 
 			console.log('Random number to skip is ' + skip);
 
+			// do the loop
 			for(var i = 0; i < 50; i++)	{
 				if (i == skip) {
+					// It's the random number!!
 					console.log('Yikes!! Random number to skip is : ' + i);
 					continue;
 				} else if (i % 2 == 0) {
+					// Dumb even numbers...
 					continue;
 				}
-
+				// ahhhh nice and easy
 				console.log('Here is an odd number: ' + i);
 			}	
 
