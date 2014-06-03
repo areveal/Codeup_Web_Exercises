@@ -1,33 +1,72 @@
 <?
 //some fixed values for our address book
-$address_book = [];
-//write to the file
-function csv_out($book, $file = 'address_book.csv') {
-	//open the file
-	$write = fopen($file, 'w');
-	//write contact to the file
-	foreach ($book as $address) {
-		fputcsv($write, $address);
-	}
-	//close the handle
-	fclose($write);
-}
 
-//read the file
-function csv_in(&$book, $file = 'address_book.csv') {
-	$read = fopen($file, 'r');
+class AddressDataStore {
 
-	while(!feof($read)) {
-		$contact = fgetcsv($read);
-		if(is_array($contact)) {
-			$book[] = $contact;
+    public $filename = '';
+    public $addresses_array = [];
+
+    function read_address_book() {
+        $read = fopen($this->filename, 'r');
+
+		while(!feof($read)) {
+			$contact = fgetcsv($read);
+			if(is_array($contact)) {
+				$this->addresses_array[] = $contact;
+			}
 		}
-	}
-	fclose($read);
+		fclose($read);
+    }
+
+    function write_address_book() 
+    {
+        //open the file
+		$write = fopen($this->filename, 'w');
+		//write contact to the file
+		foreach ($this->addresses_array as $address) {
+			fputcsv($write, $address);
+		}
+		//close the handle
+		fclose($write);
+    }
+
 }
 
-//import address book
-csv_in($address_book);
+$address_book = new AddressDataStore();
+$address_book->filename = 'address_book.csv';
+$address_book->read_address_book();
+
+
+
+	// //write to the file
+	// function csv_out($book, $file = 'address_book.csv') {
+	// 	//open the file
+	// 	$write = fopen($file, 'w');
+	// 	//write contact to the file
+	// 	foreach ($book as $address) {
+	// 		fputcsv($write, $address);
+	// 	}
+	// 	//close the handle
+	// 	fclose($write);
+	// }
+
+	// read the file
+	// function csv_in(&$book, $file = 'address_book.csv') {
+	// 	$read = fopen($file, 'r');
+
+	// 	while(!feof($read)) {
+	// 		$contact = fgetcsv($read);
+	// 		if(is_array($contact)) {
+	// 			$book[] = $contact;
+	// 		}
+	// 	}
+	// 	fclose($read);
+	// }
+
+// //import address book
+// csv_in($address_book);
+
+
 //arbitrary variable to check if form input was valid
 $isValid = false;
 //check to see if all the required fields were filled out
@@ -35,22 +74,21 @@ if(!empty($_POST['name']) && !empty($_POST['address']) && !empty($_POST['city'])
 	$isValid = true;
 	if(!empty($_POST['phone'])) {
 		$new_address = $_POST;
-		$address_book[] = $new_address;
+		$address_book->addresses_array[] = $new_address;
 	} else {
 		//if they didnt put the phone field, get rid of the empty string
-		array_pop($_POST);
 		$new_address = $_POST;
 		$address_book[] = $new_address;
 	}
 }
 //write to the address book
 if($isValid) {
-	csv_out($address_book);
+	$address_book->write_address_book();
 }
 
 if(isset($_GET['remove_item'])) {
-	unset($address_book[$_GET['remove_item']]);
-	csv_out($address_book);
+	unset($address_book->addresses_array[$_GET['remove_item']]);
+	$address_book->write_address_book();
 	header('address_book.php');
 }
 
@@ -66,10 +104,10 @@ if(isset($_GET['remove_item'])) {
 	<h1>Address Book</h1>
 
 	<!--here is our address book loop -->
-	<table style='border: 1px solid black'>
-		<tr><th>Name</th><th>Address</th><th>City</th><th>State</th><th>Zip</th><th>Phone#</th></tr>
+	<table border='1'>
+		<tr><th>Name</th><th>Address</th><th>City</th><th>State</th><th>Zip</th><th>Phone#</th><th>Remove</th></tr>
 		<? if(!empty($address_book)) : ?>
-			<? foreach($address_book as $key=> $contact) : ?>
+			<? foreach($address_book->addresses_array as $key=> $contact) : ?>
 				<tr>
 					<?foreach($contact as $info) : ?>
 						<td><?= $info ?></td>
@@ -120,3 +158,7 @@ if(isset($_GET['remove_item'])) {
 
 </body>
 </html>
+
+<? var_dump($_POST)?>
+<? var_dump($_GET)?>
+<? var_dump($address_book)?>
