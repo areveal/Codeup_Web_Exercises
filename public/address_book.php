@@ -70,6 +70,32 @@ if(isset($_GET['remove_item'])) {
 	header('address_book.php');
 }
 
+// Verify there were uploaded files and no errors
+if (count($_FILES) > 0 && $_FILES['file']['error'] == 0) {
+	if($_FILES['file']['type'] == 'text/csv'){	
+		// Set the destination directory for uploads
+		$upload_dir = '/vagrant/sites/codeup.dev/public/uploads/';
+		// Grab the filename from the uploaded file by using basename
+		$filename = basename($_FILES['file']['name'] . time());
+		// Create the saved filename using the file's original name and our upload directory
+		$saved_filename = $upload_dir . $filename;
+		// Move the file from the temp location to our uploads directory
+		move_uploaded_file($_FILES['file']['tmp_name'], $saved_filename);
+		//time to import the list
+		//create a new instance for your imported list
+		$upload = new AddressDataStore("uploads/$filename");
+		//read in file	
+		$upload->read_address_book();
+		//add new items to todo list
+		$address_book->addresses_array = array_merge($address_book->addresses_array, $upload->addresses_array);
+		//save
+		$address_book->write_address_book();
+	} else {
+		//send error message if not a text file
+		$errormessage = "File must be a text file... You jive turkey!!!";		
+	}
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -100,7 +126,7 @@ if(isset($_GET['remove_item'])) {
 	<h3>Add Contacts</h3>
 
 	<!--only show error message if form input is not valid-->
-	<? if((!$isValid) && !empty($_POST)) : ?>
+	<? if((!$isValid) && !empty($_POST) && empty($_POST['file'])) : ?>
 		<h3 style="color:red">You must input all required fields. </h3>
 	<? endif; ?>
 	<!--'sticky' form-->
@@ -132,6 +158,11 @@ if(isset($_GET['remove_item'])) {
 		
 		<input type='submit' value="Add Contact">
 
+	</form>
+	<h3>Import Address Book</h3>
+	<form method="POST" action="address_book.php" enctype="multipart/form-data">
+		<p><input type='file' name='file'></p>
+		<input type='submit' value='Upload'>
 	</form>
 
 </body>
