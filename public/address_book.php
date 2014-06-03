@@ -1,20 +1,31 @@
 <?
+//some fixed values for our address book
+$address_book = [];
+//write to the file
 function csv_out($book, $file = 'address_book.csv') {
 	//open the file
-	$write = fopen($file, 'w');
-	//write each contact to the file
-	foreach ($book as $contact) {
-		fputcsv($write, $contact);
-	}
+	$write = fopen($file, 'a');
+	//write contact to the file
+	fputcsv($write, $book);
 	//close the handle
 	fclose($write);
 }
-//some fixed values for our address book
-$address_book = [
-    ['The White House', '1600 Pennsylvania Avenue NW', 'Washington', 'DC', '20500'],
-    ['Marvel Comics', 'P.O. Box 1527', 'Long Island City', 'NY', '11101'],
-    ['LucasArts', 'P.O. Box 29901', 'San Francisco', 'CA', '94129-0901']
-];
+
+//read the file
+function csv_in(&$book, $file = 'address_book.csv') {
+	$read = fopen($file, 'r');
+
+	while(!feof($read)) {
+		$contact = fgetcsv($read);
+		if(is_array($contact)) {
+			$book[] = $contact;
+		}
+	}
+	fclose($read);
+}
+
+//import address book
+csv_in($address_book);
 //arbitrary variable to check if form input was valid
 $isValid = false;
 //check to see if all the required fields were filled out
@@ -32,7 +43,7 @@ if(!empty($_POST['name']) && !empty($_POST['address']) && !empty($_POST['city'])
 }
 //write to the address book
 if($isValid) {
-	csv_out($address_book);
+	csv_out($new_address);
 }
 
 ?>
@@ -62,7 +73,7 @@ if($isValid) {
 
 
 	<h3>Add Contacts</h3>
-	
+
 	<!--only show error message if form input is not valid-->
 	<? if((!$isValid) && !empty($_POST)) : ?>
 		<h3 style="color:red">You must input all required fields. </h3>
