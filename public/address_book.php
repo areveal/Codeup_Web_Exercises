@@ -7,6 +7,10 @@ class AddressDataStore {
     public $filename = '';
     public $addresses_array = [];
 
+    public function __construct($filename = 'address_book.csv') {
+    	$this->filename = $filename;
+    }
+
     //method to read from address book
     public function read_address_book() {
         //open the file for reading
@@ -38,8 +42,6 @@ class AddressDataStore {
 
 //create an instance
 $address_book = new AddressDataStore();
-//assign filename
-$address_book->filename = 'address_book.csv';
 //upload file
 $address_book->read_address_book();
 
@@ -55,6 +57,7 @@ if(!empty($_POST['name']) && !empty($_POST['address']) && !empty($_POST['city'])
 	$address_book->addresses_array[] = $new_address;
 	//save addresses if new one added
 	$address_book->write_address_book();
+
 }
 
 //remove items if we get an index to remove
@@ -104,27 +107,27 @@ if(isset($_GET['remove_item'])) {
 	<form method="POST" action="address_book.php">
 		<p>
 			<label for="name">Name:</label>
-			<input id="name" type="text" name="name" value="<?= (!$isValid && !empty($_POST['name'])) ? $_POST['name'] : '' ?>">
+			<input id="name" placeholder="Your Name" type="text" name="name" value="<?= (!$isValid && !empty($_POST['name'])) ? $_POST['name'] : '' ?>">
 		</p>
 		<p>
 			<label for="address">Address:</label>
-			<input id="address" type="text" name="address" value="<?= (!$isValid && !empty($_POST['address'])) ? $_POST['address'] : '' ?>">
+			<input id="address" placeholder="Your Address" type="text" name="address" value="<?= (!$isValid && !empty($_POST['address'])) ? $_POST['address'] : '' ?>">
 		</p>
 		<p>
 			<label for="city">City:</label>
-			<input id="city" type="text" name="city" value="<?= (!$isValid && !empty($_POST['city'])) ? $_POST['city'] : '' ?>">
+			<input id="city" placeholder="City" type="text" name="city" value="<?= (!$isValid && !empty($_POST['city'])) ? $_POST['city'] : '' ?>">
 		</p>
 		<p>
 			<label for="state">State:</label>
-			<input id="state" type="text" name="state" value="<?= (!$isValid && !empty($_POST['state'])) ? $_POST['state'] : '' ?>">
+			<input id="state" placeholder="State" type="text" name="state" value="<?= (!$isValid && !empty($_POST['state'])) ? $_POST['state'] : '' ?>">
 		</p>
 		<p>
 			<label for="zip">Zip:</label>
-			<input id="zip" type="text" name="zip" value="<?= (!$isValid && !empty($_POST['zip'])) ? $_POST['zip'] : '' ?>">
+			<input id="zip" placeholder="Zip Code" type="text" name="zip" value="<?= (!$isValid && !empty($_POST['zip'])) ? $_POST['zip'] : '' ?>">
 		</p>
 		<p>
 			<label for="phone">Phone:</label>
-			<input id="phone" type="text" name="phone" value="<?= (!$isValid && !empty($_POST['phone'])) ? $_POST['phone'] : '' ?>">
+			<input id="phone" placeholder="Phone Number" type="text" name="phone" value="<?= (!$isValid && !empty($_POST['phone'])) ? $_POST['phone'] : '' ?>">
 		</p>
 		
 		<input type='submit' value="Add Contact">
