@@ -4,9 +4,11 @@ $address_book = [];
 //write to the file
 function csv_out($book, $file = 'address_book.csv') {
 	//open the file
-	$write = fopen($file, 'a');
+	$write = fopen($file, 'w');
 	//write contact to the file
-	fputcsv($write, $book);
+	foreach ($book as $address) {
+		fputcsv($write, $address);
+	}
 	//close the handle
 	fclose($write);
 }
@@ -43,7 +45,13 @@ if(!empty($_POST['name']) && !empty($_POST['address']) && !empty($_POST['city'])
 }
 //write to the address book
 if($isValid) {
-	csv_out($new_address);
+	csv_out($address_book);
+}
+
+if(isset($_GET['remove_item'])) {
+	unset($address_book[$_GET['remove_item']]);
+	csv_out($address_book);
+	header('address_book.php');
 }
 
 ?>
@@ -61,11 +69,12 @@ if($isValid) {
 	<table style='border: 1px solid black'>
 		<tr><th>Name</th><th>Address</th><th>City</th><th>State</th><th>Zip</th><th>Phone#</th></tr>
 		<? if(!empty($address_book)) : ?>
-			<? foreach($address_book as $contact) : ?>
+			<? foreach($address_book as $key=> $contact) : ?>
 				<tr>
 					<?foreach($contact as $info) : ?>
-						<td style='border: 1px solid black'><?= $info ?></td>
+						<td><?= $info ?></td>
 					<? endforeach; ?>
+					<td><a href=<?= "?remove_item=$key"?>>Remove Item</a></td>
 				</tr>
 			<? endforeach; ?>
 		<? endif; ?>
@@ -79,7 +88,7 @@ if($isValid) {
 		<h3 style="color:red">You must input all required fields. </h3>
 	<? endif; ?>
 	<!--'sticky' form-->
-	<form method="POST">
+	<form method="POST" action="address_book.php">
 		<p>
 			<label for="name">Name:</label>
 			<input id="name" type="text" name="name" value="<?= (!$isValid && !empty($_POST['name'])) ? $_POST['name'] : '' ?>">
