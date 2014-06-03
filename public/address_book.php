@@ -36,37 +36,6 @@ $address_book = new AddressDataStore();
 $address_book->filename = 'address_book.csv';
 $address_book->read_address_book();
 
-
-
-	// //write to the file
-	// function csv_out($book, $file = 'address_book.csv') {
-	// 	//open the file
-	// 	$write = fopen($file, 'w');
-	// 	//write contact to the file
-	// 	foreach ($book as $address) {
-	// 		fputcsv($write, $address);
-	// 	}
-	// 	//close the handle
-	// 	fclose($write);
-	// }
-
-	// read the file
-	// function csv_in(&$book, $file = 'address_book.csv') {
-	// 	$read = fopen($file, 'r');
-
-	// 	while(!feof($read)) {
-	// 		$contact = fgetcsv($read);
-	// 		if(is_array($contact)) {
-	// 			$book[] = $contact;
-	// 		}
-	// 	}
-	// 	fclose($read);
-	// }
-
-// //import address book
-// csv_in($address_book);
-
-
 //arbitrary variable to check if form input was valid
 $isValid = false;
 //check to see if all the required fields were filled out
@@ -158,7 +127,3 @@ if(isset($_GET['remove_item'])) {
 
 </body>
 </html>
-
-<? var_dump($_POST)?>
-<? var_dump($_GET)?>
-<? var_dump($address_book)?>
