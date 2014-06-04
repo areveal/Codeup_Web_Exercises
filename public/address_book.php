@@ -6,11 +6,10 @@ class AddressDataStore {
 	//declare class attributes
     public $filename = '';
     public $addresses_array = [];
-
+    //construct
     public function __construct($filename = 'address_book.csv') {
     	$this->filename = $filename;
     }
-
     //method to read from address book
     public function read_address_book() {
         //open the file for reading
@@ -36,6 +35,10 @@ class AddressDataStore {
 		}
 		//close the handle
 		fclose($write);
+    }
+    //destruct
+    public function __destruct() {
+    	echo "Class Dismissed!";
     }
 
 }
@@ -92,7 +95,7 @@ if (count($_FILES) > 0 && $_FILES['file']['error'] == 0) {
 		$address_book->write_address_book();
 	} else {
 		//send error message if not a text file
-		$errormessage = "File must be a text file... You jive turkey!!!";		
+		$errormessage = "File must be a csv file... You jive turkey!!!";		
 	}
 }
 
@@ -123,6 +126,10 @@ if (count($_FILES) > 0 && $_FILES['file']['error'] == 0) {
 	</table>
 
 
+<? 
+$leaving_soon = new AddressDataStore();
+unset($leaving_soon);
+?>
 	<h3>Add Contacts</h3>
 
 	<!--only show error message if form input is not valid-->
