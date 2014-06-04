@@ -11,19 +11,38 @@ function save($filename, $list) {
 	fclose($write);
 }
 
-$places = ['Alcatraz','Astrodome','Augusta National Golf Club','Biltmore Estate','Central Park','Daytona Speedway', 'Fenway Park', 'Golden Gate Bridge', 'Hoover Dam', 'Lambeau Field', 'Stone Mountain'];
+$places = ['Alcatraz','BatCave','Hogsmeade','Azkaban','Hogwarts','Disney World','Biltmore Estate','Fenway Park', 'Golden Gate Bridge', 'Hoover Dam', 'Lambeau Field','Gringots','The Wall'];
 
-$streets = ['Cherry', 'Lannister', 'Stark', 'Dermatographic', 'mountain', 'interruptedness', 'outcity', 'forever', 'intermediary', 'terms', 'brickish', 'horticulture', 'gasp', 'vitrioled', 'cameos', 'prexistent', 'nonpaying', 'Prill', 'guru', 'preconformity', 'fourposter', 'reoffer', 'browsing', 'reinecke', 'retrogradely', 'articulability', 'outwish', 'derogate', 'prebesetting', 'defalcator', 'nondetrimental', 'Chordate', 'kolchak', 'eraser', 'heavyweight', 'postapostolic'];
-$street_ends = ['street', 'lane', 'end', 'circle', 'boulevard'];
+$streets = ['Cherry', 'Lannister', 'Stark', 'Arya','Sansa','Eddard','Baratheon','Renly','Stannis','theon','Greyjoy','Reek','The Hound','Clegane','Baker','Ice','The Mountain','Hermione','Sirius','Samwise','Gandalf','Ghost','Snow','Frodo','Legolas','PHP','JavaScript'];
+$street_ends = ['street', 'lane', 'end', 'circle', 'boulevard','way'];
 
-$cities = ['Dallas', 'Houston', 'Gotham', 'Smallville', 'Anderson', 'Vancouver', 'Whistler', 'San Franscisco', 'Seattle', 'Boulder', 'Denver', 'Los Angeles'];
-$states = ['TX','FL','NY','CA','OK'];
+$cities = ['Dallas', 'Houston', 'Gotham', 'Smallville', 'Anderson','Winterfell','Kings Landing','Dragonstone','Vancouver', 'Whistler', 'San Franscisco', 'Seattle', 'Boulder', 'Denver', 'Los Angeles','London','Rivendale'];
+$states = ['TX','FL','NY','CA','OK','Middle Earth'];
 
 $address_book = [];
 for ($i=0; $i < 2; $i++) { 
 	$place = $places[array_rand($places)];
 	$street = ucfirst($streets[array_rand($streets)]);
-	$end = ucfirst($street_ends[array_rand($street_ends)]);
+	switch($street){
+		case 'Baratheon':
+			$end = 'Way';
+			break;
+		case 'Lannister':
+			$end = 'Lane';
+			break;
+		case 'Stannis':
+			$end = 'Street';
+			break;
+		case 'Baker':
+			$end = 'Street';
+			break;
+		case 'Eddard':
+			$end = 'End';
+			break;
+		default:
+			$end = ucfirst($street_ends[array_rand($street_ends)]);
+			break;
+	}
 	$city = $cities[array_rand($cities)];
 	$state = $states[array_rand($states)];
 	$nums = [];
