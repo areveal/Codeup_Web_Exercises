@@ -1,7 +1,7 @@
 <?
 
 //address book class import
-include('classes/address_data_store.php');
+require_once('classes/address_data_store.php');
 
 //create an instance
 $address_book = new AddressDataStore();
