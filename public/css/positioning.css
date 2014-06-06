@@ -1,5 +1,5 @@
 
-div {
+.box {
   border: 1px solid #000;
   width: 50px;
   height: 50px;
@@ -7,7 +7,7 @@ div {
   color:white;
   font-weight: bold;
   position: absolute;
-  top:40px;
+  bottom: 0px;
 }
 img {
   /*position: absolute;
@@ -47,7 +47,8 @@ a:hover {
 }
 h1 {
   font-weight: lighter;
-  margin-bottom: 0px;
+  margin-bottom: 10px;
+  margin-top: 0px; 
   float: left;
 }
 .container {
@@ -61,9 +62,14 @@ h1 {
   position:relative;
 }
 #big_container {
-  height: 300px;
-  width: 400px;
+  height: 244px;
+  width: 366px;
   border-style: none;
   padding: 0px;
   clear:both;
+}
+#ribbon {
+  position: fixed;
+  top:0px;
+  right: 0px;
 }
