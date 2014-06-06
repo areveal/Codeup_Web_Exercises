@@ -1,0 +1,66 @@
+div {
+  border: 1px solid #000;
+  width: 50px;
+  height: 50px;
+  padding: 10px;
+  color:white;
+  font-weight: bold;
+  position: absolute;
+  top:40px;
+}
+img {
+  /*position: absolute;
+  top:;
+  right: ;*/
+  float: right;
+}
+#red_box {
+  background-color: red;
+}
+#orange_box {
+  background-color: orange;
+}
+#yellow_box {
+  background-color: yellow;
+}
+#green_box {
+  background-color: green;
+}
+#blue_box {
+  background-color: blue;
+}
+
+#violet_box{
+  background-color: purple;
+}
+a:link {
+  color:#00ffdd;
+  text-decoration: none;
+}
+a:visited {
+  color:#00ffdd;
+}
+a:hover {
+  text-decoration: underline;
+  color:#000;
+}
+h1 {
+  font-weight: lighter;
+  margin-bottom: 0px;
+}
+.container {
+  padding: 0px;
+  height: 110px;
+  width: 110px;
+  float:left;
+  margin-right:10px;
+  margin-bottom:10px;
+  border-style: none;
+  position:relative;
+}
+#big_container {
+  height: 300px;
+  width: 400px;
+  border-style: none;
+  padding: 0px;
+}

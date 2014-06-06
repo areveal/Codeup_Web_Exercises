@@ -2,10 +2,10 @@ body {
 	background-color: black;
 }
 div {
-	border: 5px solid white;
+	border: 3px solid white;
 	width: 150px;
 	height: 50px;
-	padding: 11px;
+	padding: 10px;
 	margin-bottom: 10px;
 	color:white;
 	font-weight: bold;
