@@ -9,10 +9,7 @@
   position: absolute;
   bottom: 0px;
 }
-img {
-  /*position: absolute;
-  top:;
-  right: ;*/
+.container>img {
   float: right;
 }
 #red_box {
@@ -32,7 +29,7 @@ img {
 }
 
 #violet_box{
-  background-color: purple;
+  background-color: violet;
 }
 a:link {
   color:#00ffdd;
