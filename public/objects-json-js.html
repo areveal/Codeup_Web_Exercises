@@ -12,28 +12,28 @@
 		// var books = [todo];
 		var books = [
 			{
-				title: 'A Game of Thrones',
+				title: 'Clash of Kings',
 				author: {
 					firstName:'George R.R.',
 					lastName:'Martin'
 				}
 			},
 			{
-				title: 'Harry Potter',
+				title: 'The Sorcerer\'s stone',
 				author: {
 					firstName:'JK',
 					lastName:'Rowling'
 				}
 			},
 			{
-				title: 'Lord of the Rings',
+				title: 'Return of the King',
 				author: {
 					firstName:'J.R.R.',
 					lastName:'Tolkien'
 				}
 			},
 			{
-				title: 'The Chronicles of Narnia',
+				title: 'The Lion, the Witch, and the Wardrobe',
 				author: {
 					firstName:'C.S.',
 					lastName:'Lewis'
@@ -54,12 +54,16 @@
 		// todo:
 		// Loop through the array of books using .forEach and print out the specified information about each one.
 		// start loop here
-		books.forEach(function(book,index) {    
-		    console.log("Book #" + (index + 1));
-		    console.log("Title: " + book.title);
-		    console.log("Author: " + book.author.firstName + ' ' + book.author.lastName);
-		    console.log("---");
-		});
+		var get_info = function() {	
+			books.forEach(function(book,index) {    
+			    console.log("Book #" + (index + 1));
+			    console.log("Title: " + book.title);
+			    console.log("Author: " + book.author.firstName + ' ' + book.author.lastName);
+			    console.log("---");
+			});
+		}
+
+		get_info();
 		// end loop here
 	</script>
 </body>
