@@ -21,6 +21,7 @@
     <input type='button' value='Stripe the table' id='grey'>
     <input type='button' value='Change color of dbid = 1' id='dbid_blue'>
     <input type='button' value='Change Paragraph Text' id='p'>
+    <input type='button' value='DO NOT CLICK THIS BUTTON' id='UH_OH'>
     
 
     <script>
@@ -82,6 +83,27 @@
 
         var btn5 = document.getElementById('p');
         btn5.addEventListener('click',accomplish,false);
+
+        var body = document.getElementsByTagName('body');
+        // var cursor = document.getElementsByTagName('cursor');
+
+        var boom = function() { 
+            body[0].style['background-color'] = '#f00';
+            body[0].style['cursor'] = 'URL(img/pandas.cur.png),auto';
+            mainHeader.innerHTML = 'PAAANNNNDDDAAAAA!!!!!';
+            mainHeader.style['color'] = '#fff';
+            subHeader.innerHTML = 'You shouldn\'t have done it!';
+            subHeader.style['color'] = '#fff';
+            for (var i = 0; i < listItems.length; i++) {
+                    listItems[i].innerHTML = '<img src="img/pandas.jpg">'
+                };
+            subParagraphs[0].innerHTML = 'Panda Panda Panda Panda Panda Panda Panda Panda Panda Panda Panda Panda Panda Panda Panda Panda Panda Panda Panda Panda Panda Panda Panda Panda Panda Panda';
+            subParagraphs[0].style['color'] = '#fff';
+
+        }
+
+        var btn6 = document.getElementById('UH_OH');
+        btn6.addEventListener('click',boom,false);
 
     </script>
 
