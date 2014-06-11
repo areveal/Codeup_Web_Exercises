@@ -1,0 +1,30 @@
+<html>
+<head>
+	<title>Is it christmas?</title>
+	<script src="js/moment.js"></script>
+	<style>
+		h1 {
+			margin-top: 100px;
+			text-align: center;
+			font-size: 100px;
+		}
+	</style>
+</head>
+<body>
+	<h1 id='ans'></h1>
+	<script>
+		var now = moment();
+
+		// if (now.date() == '11' && now.month() == '5') {
+		// 	document.getElementById('ans').innerHTML = 'Yes';
+		// 	console.log('yes'); 
+		// } else {
+		// 	document.getElementById('ans').innerHTML = 'No';
+		// 	console.log('no');
+		// }
+		document.getElementById('ans').innerHTML = now.format('MMMM Do, YYYY');
+		console.log('this works');
+
+	</script>
+</body>
+</html>

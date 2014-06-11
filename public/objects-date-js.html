@@ -1,0 +1,50 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<!--<script type="text/javascript">
+			var start1 = Date.now();
+	</script>-->
+	<script src='js/moment.js'></script>
+	<script>
+		// todo:
+		// Create an array of months for printing dates without Moment.js.
+		var months = ['January','February','March','April','May','June','July','August','September','October','November','Decemebr'];
+
+		// todo:
+		// Create the date corresponding to your birthday using the JavaScript Date object.
+		
+		// var jsBirthday = {
+		// 	month : months[6],
+		// 	day : 24,
+		// 	year : 1990,
+		// 	put_it_together : function() {
+		// 		return this.month + ' ' + this.day + ',' + this.year;
+		// 	}
+		// };
+
+		var jsBirthday = new Date(1990,6,24);
+
+		formatted_bday =  months[jsBirthday.getMonth()] + ' ' + jsBirthday.getDate() + ',' + jsBirthday.getFullYear(); 
+
+		// todo:
+		// Log your birthday in the format: January 1, 2014 using the JavaScript Date object.
+		// See link below for methods needed:
+		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#Getter
+		
+		// console.log('Here is my birthday using vanilla js: ' + jsBirthday.put_it_together());
+		console.log('Here is my birthday using vanilla js: ' + formatted_bday);
+
+		// create the date corresponding to your birthday using Moment.js.
+		var momentBirthday = moment('7-24-1990','MM-DD-YYYY');
+		formatted_moment_bday = momentBirthday.format('MMMM Do, YYYY');
+
+		// todo:
+		// Log your birthday in the format: January 1, 2014 using Moment.js.
+		console.log('Here is my birthday using Moment.js: ' + formatted_moment_bday);
+	</script>
+	
+	
+</body>
+</html>
