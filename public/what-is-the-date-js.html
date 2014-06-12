@@ -1,30 +1,55 @@
 <html>
 <head>
 	<title>What is the date?</title>
+
 	<script src="js/moment.js"></script>
+	<script src="js/jquery/jquery.js"></script>
+	<script>
+		$(document).ready(function() {
+			var show_time = function() {
+				//create an instance
+				now = moment();
+				var date = '<span id="date">' + now.format('MMMM Do, YYYY') + '</span>';
+				var time = '<span id="time">' + now.format('h:mm:ss') + '</span>';
+				//grab h1 and change it to current instance of moment.
+				$('#ans').html( date + '<br>' + time);
+			};
+			setInterval(show_time,100);
+
+			console.log('Yes. This is all it does.');
+		});
+	</script>
+
 	<style>
+		body{
+			background-color: #000;
+		}
 		h1 {
 			margin-top: 100px;
 			text-align: center;
 			font-size: 100px;
 		}
+		#date {
+			color:#fff;
+		}
+		#time {
+			color:#0f0;
+			padding:0px 10px;
+			border: 2px dashed #f00;
+		}
+		button {
+			font-size: 30px;
+			border-radius: 5px;
+		}
+		#hidden {
+			display: none;
+		}
 	</style>
 </head>
 <body>
+	<!--display the current time-->
 	<h1 id='ans'></h1>
-	<script>
-		var now = moment();
-
-		// if (now.date() == '11' && now.month() == '5') {
-		// 	document.getElementById('ans').innerHTML = 'Yes';
-		// 	console.log('yes'); 
-		// } else {
-		// 	document.getElementById('ans').innerHTML = 'No';
-		// 	console.log('no');
-		// }
-		document.getElementById('ans').innerHTML = now.format('MMMM Do, YYYY') + '<br>' + now.format('h:mm:ss');
-		console.log('this works');
-
-	</script>
+	<!--only show this if alarm goes off (display: none)-->
+	<button id="hidden">Stop</button>
 </body>
 </html>
