@@ -2,14 +2,39 @@
 <head>
 	<title>jQuery</title>
 	<script src='js/jquery/jquery.js'></script>
-	<script type="text/javascript">
-		$(document).ready(function() {
-	    	alert( 'The DOM has finished loading!');
-		});
-	</script>
-
+	<script>
+        $('document').ready(function() {
+        	$('h1').click(function(){
+        		$(this).css('background-color','#ccc');
+        	});
+        	$('p').dblclick(function(){
+        		$(this).css('font-size','18px');
+        	});
+        	$('li').hover(
+        		function(){
+        			$(this).css('color','#f00');
+        		},
+        		function() {
+        			$(this).css('color','#000');
+        		}
+        	);
+            
+        });
+    </script>
 </head>
 <body>
+	<h1 id="codeup">Hello Codeup</h1>
+	<p id="para">This is a paragraph</p>
+	<ul id="list">
+		<li id="first" class="codeup">Item One</li>
+		<li id="second" class="not-codeup">Item Two</li>
+		<li id="third" class="not-codeup">Item Three</li>
+		<li id="fourth" class="codeup">Item Four</li>
+	</ul>	
 
+	<div id="div1" class="codeup">Box1</div>
+	<div id="div2"class="box">Box2</div>
+
+	<button>Change it back</button>
 </body>
 </html>

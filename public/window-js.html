@@ -1,12 +1,14 @@
 <html>
 <head>
     <title>Delayed Autosave</title>
+
 </head>
 <body>
 
     <h2 id="h2">Autosaving Text Input</h2>
     <textarea rows="10" cols="60" id="important"></textarea>
 
+    <script src="js/jquery/jquery.js"></script>
     <script>
         
         var timeoutId = null;
@@ -16,6 +18,7 @@
         }
 
         function autosave() {
+
             
             delay = 5000;
 
@@ -34,8 +37,8 @@
         // this causes the autosave function to be called whenever
         // a key up event occurs in the textarea
         // we will learn about events in the DOM lessons
-        var textarea = document.getElementById('important');
-        textarea.addEventListener('keyup', autosave, false);
+        var textarea = $('#important');
+        textarea.on('keyup', autosave);
 
     </script>
 
