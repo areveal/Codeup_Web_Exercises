@@ -7,7 +7,7 @@
 		$(document).ready(function() {
 			$('.btn1').click(function(event) {
 				event.preventDefault();
-				$('dd').toggleClass('invisible');
+				$('dd').fadeToggle();
 			});
 
 			// $('ul').children().first().css('font-weight','bold');
@@ -15,9 +15,7 @@
 				$(this).children().first().css('font-weight','bold');
 			});
 
-			$('li').click(function() {
-				$(this).parent().addClass("invisible");
-			});
+			$('h3').click(function(){$(this).next().fadeToggle()});
 
 		});
 	</script>
@@ -45,7 +43,7 @@
 			float: right;
 			font-size: 2em;
 		}
-		li,a,button {
+		h3,a,button {
 			cursor: pointer;
 		}
 		h3 {

@@ -9,12 +9,20 @@
 			var show_time = function() {
 				//create an instance
 				now = moment();
+				if((now.hour() == 14) && (now.minute() == 37)) {
+					$('#ans').html('WAKE UP!!!').css('color','#fff');
+				} else {	
 				var date = '<span id="date">' + now.format('MMMM Do, YYYY') + '</span>';
 				var time = '<span id="time">' + now.format('h:mm:ss') + '</span>';
 				//grab h1 and change it to current instance of moment.
 				$('#ans').html( date + '<br>' + time);
+				}
+				
 			};
+			
 			setInterval(show_time,100);
+
+
 
 			console.log('Yes. This is all it does.');
 		});
