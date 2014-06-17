@@ -1,16 +1,139 @@
 <html>
 <head>
 	<title>whack!</title>
-	<script src="js/jquery/jquery.js"></script>
+	<script src="../js/jquery/jquery.js"></script>
 	<script>
 		$(document).ready(function() {
-			$('img').click(function(){
-				$(this).fadeToggle();
-			})
-		})
+
+			var high_score = 0;
+		
+			var pop_up = function(place){
+				$(place).html('<img src="img/mole.png" class="mole">');
+			}
+
+			var hide = function(place) {
+				$('.mole').remove();
+			}
+			
+			var play_game = function() {
+				var score = 0;
+				$('#score').html(score);
+				var time = 2000;
+				
+				//every second pop up and hide for 10 seconds
+				var gameId = setInterval(function(){
+						var here_i_am = '#hole' + Math.ceil(Math.random()*9);
+						pop_up(here_i_am);
+
+						var popId = setTimeout(function(){
+							hide(here_i_am);
+						},(time*.85));
+						
+						$('.mole').click(function() {
+							hide(here_i_am);
+							score++;
+							$('#score').html(score);
+							clearTimeout(popId);
+							time *=.9;
+						});							
+				},time);
+				// stops game
+				setTimeout(function(){
+					clearTimeout(gameId);
+					alert('Game Over!');
+					//checks high score
+					if(score > high_score) {
+						high_score = score;
+						alert('New High Score!');
+						$('#high_score').html(high_score);
+					}
+				},30000);
+
+			};
+
+			$('#start').click(function(){
+				play_game();
+			});
+
+		});
 	</script>
+	<style>
+		.hole {
+			border-radius: 100px;
+			width:200px;
+			height: 200px;
+			background-color: #000;
+			float: left;
+			margin: 5px;
+			position: relative;
+		}
+		#box{
+			border: 1px solid black;
+			width: 630px;
+			height: 630px;
+			margin: auto;
+		}
+		h1{
+			text-align: center;
+			font-size: 4em;
+			margin-bottom: 0px;
+		}
+		.mole {
+			height: 100px ;
+			position: absolute;
+			top:40px;
+			left:20px;
+		}	
+		#start {
+			font-size: 30px;
+		}
+		#show_score,#show_high {
+			position: relative;
+			width: 100px;
+		}
+		#show_score {
+			left:80px;
+		}
+		#show_high {
+			top:20px;
+			left:22px;
+		}
+		#button_holder {
+			text-align: center;
+		}
+		#score_list {
+			position: relative;
+			top: -550px;
+			left: 80px;
+			width: 200px;
+		}
+	</style>
 </head>
 <body>
-	<img src="img/mole.jpg"
+	<h1>Whack-A-Mole</h1>
+	<div id="button_holder"><button id="start">Start</button></div>
+	<span id="show_score">Score: <sspanan id="score">0</sspanan></span>
+	<span id="show_high">High Score: <span id="high_score">0</span></span>
+	<div id="box">	
+		<div class="hole" id="hole1"></div>
+		<div class="hole" id="hole2"></div>
+		<div class="hole" id="hole3"></div>
+		<div class="hole" id="hole4"></div>
+		<div class="hole" id="hole5"></div>
+		<div class="hole" id="hole6"></div>
+		<div class="hole" id="hole7"></div>
+		<div class="hole" id="hole8"></div>
+		<div class="hole" id="hole9"></div>
+	</div>
+	<div id="score_list">	
+		<h4>All Time High Scores</h4>
+		<ol>
+			<li>list item</li>
+			<li>list item</li>
+			<li>list item</li>
+			<li>list item</li>
+			<li>list item</li>
+		</ol>
+	</div>
 </body>
 </html>
