@@ -5,6 +5,14 @@ require_once('filestore.php');
 
 class AddressDataStore extends Filestore {
 
+    public $filename = '';
+
+    function __construct($filename = '')
+    {
+        $filename = strtolower($filename);
+        parent::__construct($filename);
+    }
+
 
     function read_address_book()
     {
