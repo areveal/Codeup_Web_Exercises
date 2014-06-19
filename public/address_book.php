@@ -40,7 +40,7 @@ if (count($_FILES) > 0 && $_FILES['file']['error'] == 0) {
 		// Set the destination directory for uploads
 		$upload_dir = '/vagrant/sites/codeup.dev/public/uploads/';
 		// Grab the filename from the uploaded file by using basename
-		$filename = basename($_FILES['file']['name'] . time());
+		$filename = basename($_FILES['file']['name']);
 		// Create the saved filename using the file's original name and our upload directory
 		$saved_filename = $upload_dir . $filename;
 		// Move the file from the temp location to our uploads directory
