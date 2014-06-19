@@ -4,9 +4,9 @@
 require_once('classes/address_data_store.php');
 
 //create an instance
-$address_book = new AddressDataStore();
+$book = new AddressDataStore('address_book.csv');
 //upload file
-$address_book->read_address_book();
+$address_book = $book->read_address_book();
 
 //arbitrary variable to check if form input was valid
 $isValid = false;
@@ -17,20 +17,22 @@ if(!empty($_POST['name']) && !empty($_POST['address']) && !empty($_POST['city'])
 	//create new address to add
 	$new_address = $_POST;
 	//add new address
-	$address_book->addresses_array[] = $new_address;
+	$address_book[] = $new_address;
 	//save addresses if new one added
-	$address_book->write_address_book();
+	$book->write_address_book($address_book);
 
 }
 
 //remove items if we get an index to remove
 if(isset($_GET['remove_item'])) {
 	//remove the specified index
-	unset($address_book->addresses_array[$_GET['remove_item']]);
+	unset($address_book[$_GET['remove_item']]);
 	//save address book after removal
-	$address_book->write_address_book();
-	//refresh page
-	header('address_book.php');
+	$book->write_address_book($address_book);
+	//reload page
+	header('Location: address_book.php');
+
+	exit(0);
 }
 
 // Verify there were uploaded files and no errors
@@ -46,13 +48,13 @@ if (count($_FILES) > 0 && $_FILES['file']['error'] == 0) {
 		move_uploaded_file($_FILES['file']['tmp_name'], $saved_filename);
 		//time to import the list
 		//create a new instance for your imported list
-		$upload = new AddressDataStore("uploads/$filename");
+		$import = new AddressDataStore("uploads/$filename");
 		//read in file	
-		$upload->read_address_book();
+		$import_book = $import->read_address_book();
 		//add new items to todo list
-		$address_book->addresses_array = array_merge($address_book->addresses_array, $upload->addresses_array);
+		$address_book = array_merge($address_book, $import_book);
 		//save
-		$address_book->write_address_book();
+		$book->write_address_book($address_book);
 	} else {
 		//send error message if not a text file
 		$errormessage = "File must be a csv file... You jive turkey!!!";		
@@ -65,16 +67,26 @@ if (count($_FILES) > 0 && $_FILES['file']['error'] == 0) {
 <html>
 <head>
 	<title>Address Book Writer</title>
+	
+	<!-- twitter bootstrap -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+	
+	<!-- bootstrap JavaScript -->
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 
 	<h1>Address Book</h1>
 
 	<!--here is our address book loop -->
-	<table border='1'>
+	<table class="table table-hover">
 		<tr><th>Name</th><th>Address</th><th>City</th><th>State</th><th>Zip</th><th>Phone#</th><th>Remove</th></tr>
-		<? if(!empty($address_book->addresses_array)) : ?>
-			<? foreach($address_book->addresses_array as $key=> $contact) : ?>
+		<? if(!empty($address_book)) : ?>
+			<? foreach($address_book as $key=> $contact) : ?>
 				<tr>
 					<?foreach($contact as $info) : ?>
 						<td><?= htmlspecialchars(htmlentities($info)) ?></td>
@@ -93,30 +105,30 @@ if (count($_FILES) > 0 && $_FILES['file']['error'] == 0) {
 		<h3 style="color:red">You must input all required fields. </h3>
 	<? endif; ?>
 	<!--'sticky' form-->
-	<form method="POST" action="address_book.php">
+	<form method="POST" action="address_book.php" class="form-horizontal">
 		<p>
 			<label for="name">Name:</label>
-			<input id="name" placeholder="Your Name" type="text" name="name" value="<?= (!$isValid && !empty($_POST['name'])) ? $_POST['name'] : '' ?>">
+			<input class="form-horizontal" id="name" placeholder="Your Name" type="text" name="name" value="<?= (!$isValid && !empty($_POST['name'])) ? $_POST['name'] : '' ?>">
 		</p>
 		<p>
 			<label for="address">Address:</label>
-			<input id="address" placeholder="Your Address" type="text" name="address" value="<?= (!$isValid && !empty($_POST['address'])) ? $_POST['address'] : '' ?>">
+			<input class="form-horizontal" id="address" placeholder="Your Address" type="text" name="address" value="<?= (!$isValid && !empty($_POST['address'])) ? $_POST['address'] : '' ?>">
 		</p>
 		<p>
 			<label for="city">City:</label>
-			<input id="city" placeholder="City" type="text" name="city" value="<?= (!$isValid && !empty($_POST['city'])) ? $_POST['city'] : '' ?>">
+			<input class="form-horizontal" id="city" placeholder="City" type="text" name="city" value="<?= (!$isValid && !empty($_POST['city'])) ? $_POST['city'] : '' ?>">
 		</p>
 		<p>
 			<label for="state">State:</label>
-			<input id="state" placeholder="State" type="text" name="state" value="<?= (!$isValid && !empty($_POST['state'])) ? $_POST['state'] : '' ?>">
+			<input class="form-horizontal" id="state" placeholder="State" type="text" name="state" value="<?= (!$isValid && !empty($_POST['state'])) ? $_POST['state'] : '' ?>">
 		</p>
 		<p>
 			<label for="zip">Zip:</label>
-			<input id="zip" placeholder="Zip Code" type="text" name="zip" value="<?= (!$isValid && !empty($_POST['zip'])) ? $_POST['zip'] : '' ?>">
+			<input class="form-horizontal" id="zip" placeholder="Zip Code" type="text" name="zip" value="<?= (!$isValid && !empty($_POST['zip'])) ? $_POST['zip'] : '' ?>">
 		</p>
 		<p>
 			<label for="phone">Phone:</label>
-			<input id="phone" placeholder="Phone Number" type="text" name="phone" value="<?= (!$isValid && !empty($_POST['phone'])) ? $_POST['phone'] : '' ?>">
+			<input class="form-horizontal" id="phone" placeholder="Phone Number" type="text" name="phone" value="<?= (!$isValid && !empty($_POST['phone'])) ? $_POST['phone'] : '' ?>">
 		</p>
 		
 		<input type='submit' value="Add Contact">
