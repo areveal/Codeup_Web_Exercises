@@ -20,7 +20,7 @@ try{
 		//add new address
 		$address_book[] = $new_address;
 	}
-}catch(Exception $e){
+}catch(InvalidInputException $e){
 	$msg = $e->getMessage();
 }
 
@@ -91,7 +91,7 @@ if (count($_FILES) > 0 && $_FILES['file']['error'] == 0) {
 	<table class="table table-hover">
 		<tr><th>Name</th><th>Address</th><th>City</th><th>State</th><th>Zip</th><th>Phone#</th><th>Remove</th></tr>
 		<? if(!empty($address_book)) : ?>
-			<? foreach($address_book as $key=> $contact) : ?>
+			<? foreach($address_book as $key => $contact) : ?>
 				<tr>
 					<?foreach($contact as $info) : ?>
 						<td><?= htmlspecialchars(htmlentities($info)) ?></td>

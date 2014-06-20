@@ -32,22 +32,8 @@ class AddressDataStore extends Filestore {
     {
         foreach ($input as $key => $value) {
             if (strlen($value) > 125) {
-                throw new Exception("We're sorry. Your {$key} must be shorter than 125 characters.");
+                throw new InvalidInputException("We're sorry. Your {$key} must be shorter than 125 characters.");
             }
-        }
-    }
-    
-    public function add_item($input)
-    {
-        if(!empty($input['name']) && !empty($input['address']) && !empty($input['city']) && !empty($input['state']) && !empty($input['zip'])) {
-            //validate inputs
-            $this->validate($input);
-            
-            $this->isValid = true;
-            //create new address to add
-            $new_address = $input;
-            //add new address
-            return $new_address;
         }
     }
 
