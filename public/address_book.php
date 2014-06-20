@@ -12,6 +12,8 @@ $isValid = false;
 //check to see if all the required fields were filled out
 if(!empty($_POST['name']) && !empty($_POST['address']) && !empty($_POST['city']) && !empty($_POST['state']) && !empty($_POST['zip'])) {
 	//required fields were filled out
+	//validate inputs
+	$book->validate($_POST);
 	$isValid = true;
 	//create new address to add
 	$new_address = $_POST;

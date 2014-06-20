@@ -7,24 +7,33 @@ class AddressDataStore extends Filestore {
 
     public $filename = '';
 
-    function __construct($filename = '')
+    public function __construct($filename = '')
     {
         $filename = strtolower($filename);
         parent::__construct($filename);
     }
 
 
-    function read_address_book()
+    public function read_address_book()
     {
         // TODO: refactor to use new $this->read_csv() method
         $addresses = $this->read();
         return $addresses;
     }
 
-    function write_address_book($addresses_array) 
+    public function write_address_book($addresses_array) 
     {
         // TODO: refactor to use new write_csv() method
         $this->write($addresses_array);
+    }
+
+    public function validate($input) 
+    {
+        foreach ($input as $key => $value) {
+        if (strlen($value) > 125) {
+            throw new Exception("{$key} must be shorter than 125 characters.");
+        }
+    }
     }
 
 }
