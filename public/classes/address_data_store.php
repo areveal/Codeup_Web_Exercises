@@ -6,6 +6,7 @@ require_once('filestore.php');
 class AddressDataStore extends Filestore {
 
     public $filename = '';
+    public $isValid = false;
 
     public function __construct($filename = '')
     {
@@ -30,10 +31,24 @@ class AddressDataStore extends Filestore {
     public function validate($input) 
     {
         foreach ($input as $key => $value) {
-        if (strlen($value) > 125) {
-            throw new Exception("{$key} must be shorter than 125 characters.");
+            if (strlen($value) > 125) {
+                throw new Exception("We're sorry. Your {$key} must be shorter than 125 characters.");
+            }
         }
     }
+    
+    public function add_item($input)
+    {
+        if(!empty($input['name']) && !empty($input['address']) && !empty($input['city']) && !empty($input['state']) && !empty($input['zip'])) {
+            //validate inputs
+            $this->validate($input);
+            
+            $this->isValid = true;
+            //create new address to add
+            $new_address = $input;
+            //add new address
+            return $new_address;
+        }
     }
 
 }

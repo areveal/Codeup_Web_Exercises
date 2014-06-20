@@ -23,6 +23,7 @@ $(document).ready(function() {
 	}
 	
 	var play_game = function() {
+		$('#box').show();
 		if (theme == 'got') {
 			$('body').css('cursor','url(../img/cup.png),auto');
 		}else if (theme == 'mole'){
@@ -109,7 +110,8 @@ $(document).ready(function() {
 		setTimeout(function(){
 			clearTimeout(gameId);
 			clearTimeout(timeId);
-			$('body').css('cursor','auto')
+			$('body').css('cursor','auto');
+			$('#box').hide();
 			$('#show_timer').hide();
 			$('#level').fadeOut();
 			//flash game over
@@ -153,11 +155,12 @@ $(document).ready(function() {
 		$('#box').css('background-image',"url('../img/wood.jpg')");
 		$('.hole').css('background-color','#000');
 		$('#disclaimer').css('top','200px');
-		$('#show_timer').css('top','380px');
+		$('#level').css('top','0px');
+		$('#show_timer').css('top','220px');
 		$('#disclaimer_theme').html('But Jeoffry might have been... <br>');
 		$('#head_theme').html('Jeoffry');
-		$('#new_high').css('top','110px');
-		$('#game_over').css('top', '30px');
+		$('#new_high').css('top','60px');
+		$('#game_over').css('top', '65px');
 		$('#easter').remove();
 
 	});	

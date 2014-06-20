@@ -10,18 +10,18 @@ $address_book = $book->read_address_book();
 //arbitrary variable to check if form input was valid
 $isValid = false;
 //check to see if all the required fields were filled out
-if(!empty($_POST['name']) && !empty($_POST['address']) && !empty($_POST['city']) && !empty($_POST['state']) && !empty($_POST['zip'])) {
-	//required fields were filled out
-	//validate inputs
-	$book->validate($_POST);
-	$isValid = true;
-	//create new address to add
-	$new_address = $_POST;
-	//add new address
-	$address_book[] = $new_address;
-	//save addresses if new one added
-	$book->write_address_book($address_book);
-
+try{
+	if(!empty($_POST['name']) && !empty($_POST['address']) && !empty($_POST['city']) && !empty($_POST['state']) && !empty($_POST['zip'])) {
+		//validate inputs
+		$book->validate($_POST);
+		$isValid = true;
+		//create new address to add
+		$new_address = $_POST;
+		//add new address
+		$address_book[] = $new_address;
+	}
+}catch(Exception $e){
+	$msg = $e->getMessage();
 }
 
 //remove items if we get an index to remove
@@ -54,13 +54,17 @@ if (count($_FILES) > 0 && $_FILES['file']['error'] == 0) {
 		$import_book = $import->read_address_book();
 		//add new items to todo list
 		$address_book = array_merge($address_book, $import_book);
-		//save
-		$book->write_address_book($address_book);
 	} else {
 		//send error message if not a text file
 		$errormessage = "File must be a csv file... You jive turkey!!!";		
 	}
+
+	//save to file
+	$book->write_address_book($address_book);
+
 }
+
+
 
 ?>
 
@@ -102,9 +106,13 @@ if (count($_FILES) > 0 && $_FILES['file']['error'] == 0) {
 	<h3>Add Contacts</h3>
 
 	<!--only show error message if form input is not valid-->
-	<? if((!$isValid) && !empty($_POST) && empty($_POST['file'])) : ?>
-		<h3 style="color:red">You must input all required fields. </h3>
-	<? endif; ?>
+	<?  if(isset($msg)) { 
+			echo "<h2 style='color:red'>$msg</h2>"; 
+	    }elseif((!$isValid) && !empty($_POST) && empty($_POST['file'])) { 
+			echo "<h3 style=\"color:red\">You must input all required fields.</h3>";
+	    } 
+	?>
+
 	<!--'sticky' form-->
 	<form method="POST" action="address_book.php" class="form-horizontal">
 		<p>
