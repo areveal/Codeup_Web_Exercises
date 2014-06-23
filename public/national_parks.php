@@ -53,6 +53,7 @@ $dbc = new PDO('mysql:host=127.0.0.1;dbname=codeup_pdo_test_db', 'cole', 'passwo
 // Tell PDO to throw exceptions on error
 $dbc->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+
 if(!empty($_GET)) {
 	$page = $_GET['page'];
 	$offset = (intval($page)-1)*4;
@@ -76,6 +77,7 @@ function getParks($dbc, $offset) {
 		<th>Location</th>
 		<th>Date Established</th>
 		<th>Area in Acres</th>
+		<th>Description</th>
 	</tr>
 	<? foreach(getParks($dbc, $offset) as $park) : ?>	
 		<tr id="<?= $park['area_in_acres']?>">
@@ -90,6 +92,9 @@ function getParks($dbc, $offset) {
 			</td>
 			<td>
 				<?= $park['area_in_acres']?>
+			</td>
+			<td>
+				<?= $park['description']?>
 			</td>
 		</tr>
 	<? endforeach; ?>	
