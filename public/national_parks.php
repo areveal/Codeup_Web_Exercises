@@ -1,6 +1,16 @@
 <html>
 <head>
-	<title></title>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+	<title>National Parks Table</title>
 </head>
 <body>
 
@@ -15,13 +25,13 @@ $dbc->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 function getParks($dbc) {
     // Bring the $dbc variable into scope somehow
 
-    return $dbc->query('SELECT * FROM parks')->fetchAll(PDO::FETCH_ASSOC);
+    return $dbc->query('SELECT * FROM parks LIMIT 4 OFFSET 0')->fetchAll(PDO::FETCH_ASSOC);
 
 }
 ?>
 
 
-<table border=1>
+<table class="table table-hover">
 	<tr>
 		<th>Name</th>
 		<th>Location</th>
@@ -45,13 +55,10 @@ function getParks($dbc) {
 	</tr>
 	<? endforeach; ?>	
 </table>
-<?php
 
+<button>Previous Page</button>
+<button>Next Page</button>
 
-
-
-
-?>
 
 </body>
 </html>
