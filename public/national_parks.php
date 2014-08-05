@@ -68,7 +68,7 @@
 	<?
 
 	// Get new instance of PDO object
-	$dbc = new PDO('mysql:host=127.0.0.1;dbname=codeup_pdo_test_db', 'cole', 'password');
+	$dbc = new PDO('mysql:host=127.0.0.1;dbname=codeup_pdo_test_db', "$ENV[DB_USER]", "$ENV[DB_PASS]");
 
 	// Tell PDO to throw exceptions on error
 	$dbc->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
